@@ -10,11 +10,12 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CountrySelect from "../country-select"
 
 const SideMenuItems = {
-  Home: "/",
+  //Home: "/",
   Store: "/store",
   Search: "/search",
   Account: "/account",
   Cart: "/cart",
+  "Customer Service": "/about",
 }
 
 const SideMenu = ({ regions }: { regions: Region[] | null }) => {
@@ -66,26 +67,8 @@ const SideMenu = ({ regions }: { regions: Region[] | null }) => {
                       })}
                     </ul>
                     <div className="flex flex-col gap-y-6">
-                      <div
-                        className="flex justify-between"
-                        onMouseEnter={toggleState.open}
-                        onMouseLeave={toggleState.close}
-                      >
-                        {regions && (
-                          <CountrySelect
-                            toggleState={toggleState}
-                            regions={regions}
-                          />
-                        )}
-                        <ArrowRightMini
-                          className={clx(
-                            "transition-transform duration-150",
-                            toggleState.state ? "-rotate-90" : ""
-                          )}
-                        />
-                      </div>
                       <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Medusa Store. All rights
+                        © {new Date().getFullYear()} Where Labs LLC. Some rights
                         reserved.
                       </Text>
                     </div>
