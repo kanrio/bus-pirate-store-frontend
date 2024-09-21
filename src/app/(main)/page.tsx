@@ -6,6 +6,7 @@ import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { ProductCollectionWithPreviews } from "types/global"
 import { cache } from "react"
+import Carousel from "@modules/home/components/carousel"
 
 export const metadata: Metadata = {
   title: "Bus Pirate Shop",
@@ -59,9 +60,25 @@ export default async function Home() {
     return null
   }
 
+  const slides = [
+    "https://placehold.co/1200x400",
+    "https://placehold.co/1200x400",
+    "https://placehold.co/1200x400",
+    "https://placehold.co/1200x400",
+  ]
+
   return (
     <>
-      <Hero />
+      <Carousel autoSlide={true}>
+        {slides.map((s, index) => (
+          <div
+            key={index}
+            className="w-full h-full flex justify-center items-center"
+          >
+            <img src={s} alt={`Slide ${index}`} width={"100%"} />
+          </div>
+        ))}
+      </Carousel>
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
