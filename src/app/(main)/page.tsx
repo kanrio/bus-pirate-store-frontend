@@ -2,12 +2,12 @@ import { Product } from "@medusajs/medusa"
 import { Metadata } from "next"
 
 import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
-import FeaturedProducts from "@modules/home/components/featured-products"
-import Hero from "@modules/home/components/hero"
 import { ProductCollectionWithPreviews } from "types/global"
-import { cache } from "react"
+import { cache, Suspense } from "react"
 import Carousel from "@modules/home/components/carousel"
 import DistributorLogoGrid from "@modules/home/components/distributors-grid"
+import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
+import PaginatedProducts from "@modules/store/templates/paginated-products"
 
 export const metadata: Metadata = {
   title: "Bus Pirate Shop",
@@ -82,9 +82,14 @@ export default async function Home() {
       </Carousel>
 
       <DistributorLogoGrid />
-      <div className="py-12">
+      <div className="py-12 px-4">
         <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
+          <h2 className="text-2xl font-bold mb-6 text-ui-fg-base">
+            Latest Products
+          </h2>
+          <Suspense fallback={<SkeletonProductGrid />}>
+            <PaginatedProducts sortBy={"created_at"} page={1} grid={"2"} />
+          </Suspense>
         </ul>
       </div>
     </>
