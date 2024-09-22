@@ -19,8 +19,8 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
       component: <ProductInfoTab product={product} />,
     },
     {
-      label: "Shipping & Returns",
-      component: <ShippingInfoTab />,
+      label: "Distributors",
+      component: <DistributorInfoTab product={product} />,
     },
   ]
 
@@ -119,6 +119,46 @@ const ShippingInfoTab = () => {
             </p>
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
+
+const DistributorInfoTab = ({ product }: ProductTabsProps) => {
+  let distributors = []
+
+  // Check if distributors is a string and parse it
+  if (typeof product?.metadata?.distributors === "string") {
+    try {
+      distributors = JSON.parse(product.metadata.distributors)
+    } catch (error) {
+      console.error("Failed to parse distributors", error)
+    }
+  }
+
+  return (
+    <div className="text-small-regular py-8">
+      <div className="grid grid-cols-2 gap-6 md:gap-8">
+        {product &&
+          distributors?.map((distributor: any) => (
+            <div
+              key={distributor.url}
+              className="flex flex-col items-center gap-2 w-full"
+            >
+              <a
+                href={distributor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full"
+              >
+                <img
+                  src={distributor.image}
+                  alt="distributor"
+                  className="w-full h-auto object-cover rounded-md"
+                />
+              </a>
+            </div>
+          ))}
       </div>
     </div>
   )
