@@ -29,6 +29,7 @@ const StoreTemplate = ({
           <PaginatedProducts
             sortBy={sortBy || "created_at"}
             page={pageNumber}
+            grid="3"
           />
         </Suspense>
       </div>
