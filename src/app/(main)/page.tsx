@@ -7,6 +7,7 @@ import Hero from "@modules/home/components/hero"
 import { ProductCollectionWithPreviews } from "types/global"
 import { cache } from "react"
 import Carousel from "@modules/home/components/carousel"
+import DistributorLogoGrid from "@modules/home/components/distributors-grid"
 
 export const metadata: Metadata = {
   title: "Bus Pirate Shop",
@@ -79,6 +80,8 @@ export default async function Home() {
           </div>
         ))}
       </Carousel>
+
+      <DistributorLogoGrid />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
