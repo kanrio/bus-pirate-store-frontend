@@ -76,13 +76,12 @@ const ResetPassword = ({ setCurrentView }: Props) => {
           </SubmitButton>
         </form>
         <span className="text-center text-ui-fg-base text-small-regular mt-6">
-          Not a member?{" "}
+          Already a member?{" "}
           <button
-            onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
+            onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
             className="underline"
-            data-testid="register-button"
           >
-            Join us
+            Sign in
           </button>
           .
         </span>
