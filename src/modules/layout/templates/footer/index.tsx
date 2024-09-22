@@ -138,7 +138,7 @@ export default async function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://forum.buspirate.com/"
+                    href="https://mastodon.social/@buspirate"
                     target="_blank"
                     rel="noreferrer"
                     className="hover:text-ui-fg-base"
@@ -148,7 +148,7 @@ export default async function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://mastodon.social/@buspirate"
+                    href="https://bsky.app/profile/buspirate.bsky.social"
                     target="_blank"
                     rel="noreferrer"
                     className="hover:text-ui-fg-base"
