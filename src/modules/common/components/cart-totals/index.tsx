@@ -61,7 +61,11 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="flex gap-x-1 items-center ">Taxes</span>
+          <span className="flex gap-x-1 items-center ">Taxes
+            <Tooltip content="Some shipping methods allow pre-paid VAT were applicable (e.g. EU).">
+              <InformationCircleSolid color="var(--fg-muted)" />
+            </Tooltip>
+          </span>
           <span data-testid="cart-taxes" data-value={tax_total || 0}>
             {getAmount(tax_total)}
           </span>
