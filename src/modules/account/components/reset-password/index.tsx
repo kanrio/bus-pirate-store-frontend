@@ -85,6 +85,17 @@ const ResetPassword = ({ setCurrentView }: Props) => {
           </button>
           .
         </span>
+        <span className="text-center text-ui-fg-base text-small-regular mt-6">
+          Not a member?{" "}
+          <button
+            onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
+            className="underline"
+            data-testid="register-button"
+          >
+            Join us
+          </button>
+          .
+        </span>        
       </div>
     )
   }
