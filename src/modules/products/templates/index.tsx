@@ -15,13 +15,11 @@ import ProductActionsWrapper from "./product-actions-wrapper"
 type ProductTemplateProps = {
   product: PricedProduct
   region: Region
-  countryCode: string
 }
 
 const ProductTemplate: React.FC<ProductTemplateProps> = ({
   product,
   region,
-  countryCode,
 }) => {
   if (!product || !product.id) {
     return notFound()
@@ -60,7 +58,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         data-testid="related-products-container"
       >
         <Suspense fallback={<SkeletonRelatedProducts />}>
-          <RelatedProducts product={product} countryCode={countryCode} />
+          <RelatedProducts product={product} />
         </Suspense>
       </div>
     </>

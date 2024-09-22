@@ -9,11 +9,11 @@ import { getRegion, updateCart } from "@lib/data"
 /**
  * Updates the countrycode param and revalidates the regions cache
  * @param regionId
- * @param countryCode
  */
-export async function updateRegion(countryCode: string, currentPath: string) {
+
+export async function updateRegion(currentPath: string) {
   const cartId = cookies().get("_medusa_cart_id")?.value
-  const region = await getRegion(countryCode)
+  const region = await getRegion()
 
   if (!region) {
     return null
@@ -31,7 +31,7 @@ export async function updateRegion(countryCode: string, currentPath: string) {
     return "Error updating region"
   }
 
-  redirect(`/${countryCode}${currentPath}`)
+  redirect(`${currentPath}`)
 }
 
 export async function resetOnboardingState(orderId: string) {

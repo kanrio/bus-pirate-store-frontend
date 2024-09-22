@@ -12,34 +12,17 @@ import { Region } from "@medusajs/medusa"
 import ProductTemplate from "@modules/products/templates"
 
 type Props = {
-  params: { countryCode: string; handle: string }
+  params: { handle: string }
 }
 
 export async function generateStaticParams() {
-  const countryCodes = await listRegions().then((regions) =>
-    regions?.map((r) => r.countries.map((c) => c.iso_2)).flat()
-  )
+  const {
+    response: { products },
+  } = await getProductsList({})
 
-  if (!countryCodes) {
-    return null
-  }
-
-  const products = await Promise.all(
-    countryCodes.map((countryCode) => {
-      return getProductsList({ countryCode })
-    })
-  ).then((responses) =>
-    responses.map(({ response }) => response.products).flat()
-  )
-
-  const staticParams = countryCodes
-    ?.map((countryCode) =>
-      products.map((product) => ({
-        countryCode,
-        handle: product.handle,
-      }))
-    )
-    .flat()
+  const staticParams = products.map((product) => ({
+    handle: product.handle,
+  }))
 
   return staticParams
 }
@@ -84,7 +67,7 @@ const getPricedProductByHandle = async (handle: string, region: Region) => {
 }
 
 export default async function ProductPage({ params }: Props) {
-  const region = await getRegion(params.countryCode)
+  const region = await getRegion()
 
   if (!region) {
     notFound()
@@ -96,11 +79,5 @@ export default async function ProductPage({ params }: Props) {
     notFound()
   }
 
-  return (
-    <ProductTemplate
-      product={pricedProduct}
-      region={region}
-      countryCode={params.countryCode}
-    />
-  )
+  return <ProductTemplate product={pricedProduct} region={region} />
 }

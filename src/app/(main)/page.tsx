@@ -14,9 +14,7 @@ export const metadata: Metadata = {
 }
 
 const getCollectionsWithProducts = cache(
-  async (
-    countryCode: string
-  ): Promise<ProductCollectionWithPreviews[] | null> => {
+  async (): Promise<ProductCollectionWithPreviews[] | null> => {
     const { collections } = await getCollectionsList(0, 3)
 
     if (!collections) {
@@ -29,7 +27,6 @@ const getCollectionsWithProducts = cache(
       collectionIds.map((id) =>
         getProductsList({
           queryParams: { collection_id: [id] },
-          countryCode,
         })
       )
     ).then((responses) =>
@@ -54,13 +51,9 @@ const getCollectionsWithProducts = cache(
   }
 )
 
-export default async function Home({
-  params: { countryCode },
-}: {
-  params: { countryCode: string }
-}) {
-  const collections = await getCollectionsWithProducts(countryCode)
-  const region = await getRegion(countryCode)
+export default async function Home() {
+  const collections = await getCollectionsWithProducts()
+  const region = await getRegion()
 
   if (!collections || !region) {
     return null

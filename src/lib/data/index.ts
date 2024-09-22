@@ -27,6 +27,8 @@ const emptyResponse = {
   nextPage: null,
 }
 
+const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
+
 /**
  * Function for getting custom headers for Medusa API requests, including the JWT token and cache revalidation tags.
  *
@@ -361,10 +363,10 @@ export const retrieveRegion = cache(async function (id: string) {
 
 const regionMap = new Map<string, Region>()
 
-export const getRegion = cache(async function (countryCode: string) {
+export const getRegion = cache(async function () {
   try {
-    if (regionMap.has(countryCode)) {
-      return regionMap.get(countryCode)
+    if (regionMap.has(DEFAULT_REGION)) {
+      return regionMap.get(DEFAULT_REGION)
     }
 
     const regions = await listRegions()
@@ -379,8 +381,8 @@ export const getRegion = cache(async function (countryCode: string) {
       })
     })
 
-    const region = countryCode
-      ? regionMap.get(countryCode)
+    const region = DEFAULT_REGION
+      ? regionMap.get(DEFAULT_REGION)
       : regionMap.get("us")
 
     return region
@@ -445,11 +447,9 @@ export const getProductByHandle = cache(async function (
 export const getProductsList = cache(async function ({
   pageParam = 0,
   queryParams,
-  countryCode,
 }: {
   pageParam?: number
   queryParams?: StoreGetProductsParams
-  countryCode: string
 }): Promise<{
   response: { products: ProductPreviewType[]; count: number }
   nextPage: number | null
@@ -457,7 +457,7 @@ export const getProductsList = cache(async function ({
 }> {
   const limit = queryParams?.limit || 12
 
-  const region = await getRegion(countryCode)
+  const region = await getRegion()
 
   if (!region) {
     return emptyResponse
@@ -496,12 +496,10 @@ export const getProductsListWithSort = cache(
     page = 0,
     queryParams,
     sortBy = "created_at",
-    countryCode,
   }: {
     page?: number
     queryParams?: StoreGetProductsParams
     sortBy?: SortOptions
-    countryCode: string
   }): Promise<{
     response: { products: ProductPreviewType[]; count: number }
     nextPage: number | null
@@ -517,7 +515,6 @@ export const getProductsListWithSort = cache(
         ...queryParams,
         limit: 100,
       },
-      countryCode,
     })
 
     const sortedProducts = sortProducts(products, sortBy)
@@ -542,11 +539,9 @@ export const getProductsListWithSort = cache(
 export const getHomepageProducts = cache(async function getHomepageProducts({
   collectionHandles,
   currencyCode,
-  countryCode,
 }: {
   collectionHandles?: string[]
   currencyCode: string
-  countryCode: string
 }) {
   const collectionProductsMap = new Map<string, ProductPreviewType[]>()
 
@@ -560,7 +555,6 @@ export const getHomepageProducts = cache(async function getHomepageProducts({
     const products = await getProductsByCollectionHandle({
       handle,
       currencyCode,
-      countryCode,
       limit: 3,
     })
     collectionProductsMap.set(handle, products.response.products)
@@ -620,12 +614,10 @@ export const getProductsByCollectionHandle = cache(
     pageParam = 0,
     limit = 100,
     handle,
-    countryCode,
   }: {
     pageParam?: number
     handle: string
     limit?: number
-    countryCode: string
     currencyCode?: string
   }): Promise<{
     response: { products: ProductPreviewType[]; count: number }
@@ -638,7 +630,6 @@ export const getProductsByCollectionHandle = cache(
     const { response, nextPage } = await getProductsList({
       pageParam,
       queryParams: { collection_id: [id], limit },
-      countryCode,
     })
       .then((res) => res)
       .catch((err) => {
@@ -726,11 +717,9 @@ export const getCategoryByHandle = cache(async function (
 export const getProductsByCategoryHandle = cache(async function ({
   pageParam = 0,
   handle,
-  countryCode,
 }: {
   pageParam?: number
   handle: string
-  countryCode: string
   currencyCode?: string
 }): Promise<{
   response: { products: ProductPreviewType[]; count: number }
@@ -743,7 +732,6 @@ export const getProductsByCategoryHandle = cache(async function ({
   const { response, nextPage } = await getProductsList({
     pageParam,
     queryParams: { category_id: [id] },
-    countryCode,
   })
     .then((res) => res)
     .catch((err) => {

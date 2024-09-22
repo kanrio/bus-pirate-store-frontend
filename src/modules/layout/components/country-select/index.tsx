@@ -23,8 +23,8 @@ type CountrySelectProps = {
 const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
   const [current, setCurrent] = useState<CountryOption | undefined>(undefined)
 
-  const { countryCode } = useParams()
-  const currentPath = usePathname().split(`/${countryCode}`)[1]
+  const countryCode = process.env.NEXT_PUBLIC_DEFAULT_REGION
+  const currentPath = usePathname()
 
   const { state, close } = toggleState
 
@@ -48,8 +48,8 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
     }
   }, [options, countryCode])
 
-  const handleChange = (option: CountryOption) => {
-    updateRegion(option.country, currentPath)
+  const handleChange = () => {
+    updateRegion(currentPath)
     close()
   }
 
