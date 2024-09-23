@@ -62,10 +62,7 @@ export default async function Home() {
   }
 
   const slides = [
-    "https://placehold.co/1200x400",
-    "https://placehold.co/1200x400",
-    "https://placehold.co/1200x400",
-    "https://placehold.co/1200x400",
+    "https://shop.buspirate.com/banner1.png",
   ]
 
   return (
