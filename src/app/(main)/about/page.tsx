@@ -45,8 +45,9 @@ export default function Page() {
         <div>
           <h2 className="text-3xl font-semibold text-black mb-4">Spam</h2>
           <p className="text-black">
-            We only send you email updates about your active orders. We don't
-            send spam, and we don't sell your email address to anyone.
+            We only send you email updates about your active orders. We
+            don&apos;t send spam, and we don&apos;t sell your email address to
+            anyone.
           </p>
         </div>
       </div>
