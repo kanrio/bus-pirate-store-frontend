@@ -4,6 +4,9 @@ const DistributorLogoGrid = () => {
   const distributors = [
     { name: "DirtyPCBs", url: "https://dirtypcbs.com/store/designer/browse/ian", logo: "/dirtypcbs.png" },
     { name: "blinkinlabs", url: "https://shop.blinkinlabs.com/collections/development-tools", logo: "/blinkinlabs.png" },
+    { name: "electrokit", url: "https://www.electrokit.com/search.php?keyword=bus+pirate&search=", logo: "/electrokit.png" },
+    { name: "lab401", url: "https://lab401.com/search?q=bus+pirate", logo: "/lab401.png" },
+    { name: "adafruit", url: "https://www.adafruit.com/search?q=bus+pirate", logo: "/adafruit.png" },
 
   ]
 
