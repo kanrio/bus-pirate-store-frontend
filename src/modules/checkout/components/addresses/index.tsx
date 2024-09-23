@@ -31,9 +31,6 @@ const Addresses = ({
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
-  const params = useParams()
-
-  const countryCode = params.countryCode as string
 
   const isOpen = searchParams.get("step") === "address"
 
@@ -76,7 +73,6 @@ const Addresses = ({
           <div className="pb-8">
             <ShippingAddress
               customer={customer}
-              countryCode={countryCode}
               checked={sameAsSBilling}
               onChange={toggleSameAsBilling}
               cart={cart}
@@ -91,10 +87,12 @@ const Addresses = ({
                   Billing address
                 </Heading>
 
-                <BillingAddress cart={cart} countryCode={countryCode} />
+                <BillingAddress cart={cart} />
               </div>
             )}
-            <SubmitButton className="mt-6" data-testid="submit-address-button">Continue to delivery</SubmitButton>
+            <SubmitButton className="mt-6" data-testid="submit-address-button">
+              Continue to delivery
+            </SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
         </form>
@@ -104,7 +102,10 @@ const Addresses = ({
             {cart && cart.shipping_address ? (
               <div className="flex items-start gap-x-8">
                 <div className="flex items-start gap-x-1 w-full">
-                  <div className="flex flex-col w-1/3" data-testid="shipping-address-summary">
+                  <div
+                    className="flex flex-col w-1/3"
+                    data-testid="shipping-address-summary"
+                  >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                       Shipping Address
                     </Text>
@@ -125,7 +126,10 @@ const Addresses = ({
                     </Text>
                   </div>
 
-                  <div className="flex flex-col w-1/3 " data-testid="shipping-contact-summary">
+                  <div
+                    className="flex flex-col w-1/3 "
+                    data-testid="shipping-contact-summary"
+                  >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                       Contact
                     </Text>
@@ -137,7 +141,10 @@ const Addresses = ({
                     </Text>
                   </div>
 
-                  <div className="flex flex-col w-1/3" data-testid="billing-address-summary">
+                  <div
+                    className="flex flex-col w-1/3"
+                    data-testid="billing-address-summary"
+                  >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                       Billing Address
                     </Text>

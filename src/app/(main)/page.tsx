@@ -2,10 +2,12 @@ import { Product } from "@medusajs/medusa"
 import { Metadata } from "next"
 
 import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
-import FeaturedProducts from "@modules/home/components/featured-products"
-import Hero from "@modules/home/components/hero"
 import { ProductCollectionWithPreviews } from "types/global"
-import { cache } from "react"
+import { cache, Suspense } from "react"
+import Carousel from "@modules/home/components/carousel"
+import DistributorLogoGrid from "@modules/home/components/distributors-grid"
+import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
+import PaginatedProducts from "@modules/store/templates/paginated-products"
 
 export const metadata: Metadata = {
   title: "Bus Pirate Shop",
@@ -14,9 +16,7 @@ export const metadata: Metadata = {
 }
 
 const getCollectionsWithProducts = cache(
-  async (
-    countryCode: string
-  ): Promise<ProductCollectionWithPreviews[] | null> => {
+  async (): Promise<ProductCollectionWithPreviews[] | null> => {
     const { collections } = await getCollectionsList(0, 3)
 
     if (!collections) {
@@ -29,7 +29,6 @@ const getCollectionsWithProducts = cache(
       collectionIds.map((id) =>
         getProductsList({
           queryParams: { collection_id: [id] },
-          countryCode,
         })
       )
     ).then((responses) =>
@@ -54,24 +53,43 @@ const getCollectionsWithProducts = cache(
   }
 )
 
-export default async function Home({
-  params: { countryCode },
-}: {
-  params: { countryCode: string }
-}) {
-  const collections = await getCollectionsWithProducts(countryCode)
-  const region = await getRegion(countryCode)
+export default async function Home() {
+  const collections = await getCollectionsWithProducts()
+  const region = await getRegion()
 
   if (!collections || !region) {
     return null
   }
 
+  const slides = [
+    "https://placehold.co/1200x400",
+    "https://placehold.co/1200x400",
+    "https://placehold.co/1200x400",
+    "https://placehold.co/1200x400",
+  ]
+
   return (
     <>
-      <Hero />
-      <div className="py-12">
+      <Carousel autoSlide={true}>
+        {slides.map((s, index) => (
+          <div
+            key={index}
+            className="w-full h-full flex justify-center items-center"
+          >
+            <img src={s} alt={`Slide ${index}`} width={"100%"} />
+          </div>
+        ))}
+      </Carousel>
+
+      <DistributorLogoGrid />
+      <div className="py-12 px-4">
         <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
+          <h2 className="text-2xl font-bold mb-6 text-ui-fg-base">
+            Latest Products
+          </h2>
+          <Suspense fallback={<SkeletonProductGrid />}>
+            <PaginatedProducts sortBy={"created_at"} page={1} grid={"2"} />
+          </Suspense>
         </ul>
       </div>
     </>

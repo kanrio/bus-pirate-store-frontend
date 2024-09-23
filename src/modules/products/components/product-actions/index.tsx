@@ -36,8 +36,6 @@ export default function ProductActions({
   const [options, setOptions] = useState<Record<string, string>>({})
   const [isAdding, setIsAdding] = useState(false)
 
-  const countryCode = useParams().countryCode as string
-
   const variants = product.variants
 
   // initialize the option state
@@ -129,7 +127,6 @@ export default function ProductActions({
     await addToCart({
       variantId: variant.id,
       quantity: 1,
-      countryCode,
     })
 
     setIsAdding(false)
