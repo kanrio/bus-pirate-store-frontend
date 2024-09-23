@@ -88,7 +88,7 @@ export default async function Home() {
             Latest Products
           </h2>
           <Suspense fallback={<SkeletonProductGrid />}>
-            <PaginatedProducts sortBy={"created_at"} page={1} grid={"2"} />
+            <PaginatedProducts sortBy={"created_at"} page={1} grid={"4"} />
           </Suspense>
         </ul>
       </div>
