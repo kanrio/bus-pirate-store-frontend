@@ -2,16 +2,9 @@ import React from "react"
 
 const DistributorLogoGrid = () => {
   const distributors = [
-    { name: "Distributor 1", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 2", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 3", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 4", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 5", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 6", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 7", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 8", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 9", url: "#", logo: "https://placehold.co/80x80" },
-    { name: "Distributor 10", url: "#", logo: "https://placehold.co/80x80" },
+    { name: "DirtyPCBs", url: "https://dirtypcbs.com/store/designer/browse/ian", logo: "/dirtypcbs.png" },
+    { name: "blinkinlabs", url: "https://shop.blinkinlabs.com/collections/development-tools", logo: "/blinkinlabs.png" },
+
   ]
 
   return (
@@ -21,7 +14,9 @@ const DistributorLogoGrid = () => {
           Distributors
         </h2>
         <div className="grid grid-cols-5 gap-6  w-full">
-          {distributors.map((distributor, index) => (
+            {distributors
+            .sort(() => Math.random() - 0.5)
+            .map((distributor, index) => (
             <a
               key={index}
               href={distributor.url}

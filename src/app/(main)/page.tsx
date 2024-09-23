@@ -62,7 +62,7 @@ export default async function Home() {
   }
 
   const slides = [
-    "https://shop.buspirate.com/banner1.png",
+    "/banner1.png",
   ]
 
   return (
