@@ -27,6 +27,16 @@ const DistributorLogoGrid = () => {
       url: "https://www.adafruit.com/search?q=bus+pirate",
       logo: "/adafruit.png",
     },
+    {
+      name:"aliexpress",
+      url:"https://a.aliexpress.com/_Ejx2Bvr",
+      logo:"/aliexpress.png"
+    },
+    {
+      name: "pihut",
+      url: "https://thepihut.com/search?type=product&q=bus+pirate",
+      logo: "/pihut.png",
+    }
   ]
 
   return (
