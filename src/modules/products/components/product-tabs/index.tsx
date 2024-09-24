@@ -151,6 +151,7 @@ const DistributorInfoTab = ({ product }: ProductTabsProps) => {
                 rel="noopener noreferrer"
                 className="w-full"
               >
+                {/* eslint-disable @next/next/no-img-element */}
                 <img
                   src={distributor.image}
                   alt="distributor"

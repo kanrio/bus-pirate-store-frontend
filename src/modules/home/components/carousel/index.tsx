@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, ReactNode } from "react"
+import React, { useState, useEffect, ReactNode, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "react-feather"
 
 const Carousel = ({
@@ -14,17 +14,19 @@ const Carousel = ({
 }) => {
   const [curr, setCurr] = useState(0)
 
-  const prev = () =>
+  const prev = useCallback(() => {
     setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1))
+  }, [slides.length])
 
-  const next = () =>
+  const next = useCallback(() => {
     setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1))
+  }, [slides.length])
 
   useEffect(() => {
     if (!autoSlide) return
     const slideInterval = setInterval(next, autoSlideInterval)
     return () => clearInterval(slideInterval)
-  }, [autoSlide, autoSlideInterval])
+  }, [autoSlide, autoSlideInterval, next])
 
   return (
     <div className="w-full border-b border-ui-border-base overflow-hidden relative bg-ui-bg-subtle">

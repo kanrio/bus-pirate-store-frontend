@@ -61,9 +61,7 @@ export default async function Home() {
     return null
   }
 
-  const slides = [
-    "/banner1.png",
-  ]
+  const slides = ["/banner1.png"]
 
   return (
     <>
@@ -73,6 +71,7 @@ export default async function Home() {
             key={index}
             className="w-full h-full flex justify-center items-center"
           >
+            {/* eslint-disable @next/next/no-img-element */}
             <img src={s} alt={`Slide ${index}`} width={"100%"} />
           </div>
         ))}
