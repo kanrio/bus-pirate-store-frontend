@@ -27,7 +27,7 @@ const CountrySelect = forwardRef<
       value: country.iso_2,
       label: country.display_name,
     }))
-  }, [region])
+  }, [region]).sort((a, b) => a.label.localeCompare(b.label))
 
   return (
     <NativeSelect
